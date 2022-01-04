@@ -12,12 +12,14 @@ class Compass extends StatelessWidget {
   final Widget _noSensorFound;
   final void Function()? onNoSensorFound;
   final void Function(double?)? onAccuracyChanged;
+  final double diff;
 
   const Compass(
       {Key? key,
         required this.background,
         required this.foreground,
         Widget? loading,
+        this.diff = 0.5,
         this.onNoSensorFound,
         this.onAccuracyChanged,
         Widget? noSensorFound})
@@ -59,7 +61,7 @@ class Compass extends StatelessWidget {
             if (direction != null) {
               var heading = direction;
 
-              if ((heading - _lastAngle).abs() > 0.5) {
+              if ((heading - _lastAngle).abs() > diff) {
                 _lastAngle = heading;
               } else {
                 heading = _lastAngle;
